@@ -34,8 +34,6 @@ const Login = () => {
 
       const result = await res.json();
 
-      console.log(result.data);
-
       if (!res.ok) {
         throw new Error(result.message);
       }
