@@ -5,11 +5,15 @@ import Signup from "../pages/Signup";
 import Contact from "../pages/Contact";
 import Doctors from "../pages/Doctors/Doctors";
 import DoctorDetails from "../pages/Doctors/DoctorDetails";
+import MyAccount from "../Dashboard/user-account/MyAccount";
+import Dashboard from "../Dashboard/doctor-account/Dashboard";
+import ProtectedRoute from "./ProtectedRoute";
 
-import {Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 const Routers = () => {
-  return <Routes>
+  return (
+    <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
       <Route path="/doctors" element={<Doctors />} />
@@ -18,7 +22,24 @@ const Routers = () => {
       <Route path="/register" element={<Signup />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/services" element={<Services />} />
-  </Routes>
-}
+      <Route
+        path="/users/profile/me"
+        element={
+          <ProtectedRoute allowedRoutes={['patient']} >
+            <MyAccount />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/doctors/profile/me"
+        element={
+          <ProtectedRoute allowedRoutes={['doctor']} >
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+  );
+};
 
-export default Routers
+export default Routers;

@@ -112,7 +112,7 @@ export const login = async (req, res) => {
             success: true,
             message: "Successfully logged in",
             token,
-            data: {...rest},
+            data: {...rest, photo: user.photo},
             role
         });
         

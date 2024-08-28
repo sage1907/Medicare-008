@@ -1,12 +1,17 @@
-import express from 'express';
+import express from "express";
 
-import { getAllReviews, createReview } from '../Controllers/reviewController.js';
+import {
+  getAllReviews,
+  createReview,
+} from "../Controllers/reviewController.js";
 
-import { authenticate, restrict } from '../auth/verifyToken.js';
+import { authenticate, restrict } from "../auth/verifyToken.js";
 
 const reviewRoutes = express.Router({ mergeParams: true });
 
-reviewRoutes.route("/").get(getAllReviews).post(authenticate, restrict(['patient']), createReview);
-
+reviewRoutes
+  .route("/")
+  .get(getAllReviews)
+  .post(authenticate, restrict(["patient"]), createReview);
 
 export default reviewRoutes;

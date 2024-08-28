@@ -1,10 +1,16 @@
-import express from 'express';
+import express from "express";
 
-import { updateDoctor, deleteDoctor, getSingleDoctor , getAllDoctor } from "../Controllers/doctorController.js";
+import {
+  updateDoctor,
+  deleteDoctor,
+  getSingleDoctor,
+  getAllDoctor,
+  getDoctorProfile,
+} from "../Controllers/doctorController.js";
 
-import { authenticate, restrict } from '../auth/verifyToken.js';
+import { authenticate, restrict } from "../auth/verifyToken.js";
 
-import reviewRoutes from './review.js';
+import reviewRoutes from "./review.js";
 
 const doctorRoutes = express.Router();
 
@@ -13,8 +19,13 @@ doctorRoutes.use("/doctorId/reviews", reviewRoutes);
 
 doctorRoutes.get("/:id", getSingleDoctor);
 doctorRoutes.get("/", getAllDoctor);
-doctorRoutes.put("/:id", authenticate, restrict(['doctor']), updateDoctor);
-doctorRoutes.delete("/:id", authenticate, restrict(['doctor']), deleteDoctor);
-
+doctorRoutes.put("/:id", authenticate, restrict(["doctor"]), updateDoctor);
+doctorRoutes.delete("/:id", authenticate, restrict(["doctor"]), deleteDoctor);
+doctorRoutes.get(
+  "/profile/me",
+  authenticate,
+  restrict(["doctor"]),
+  getDoctorProfile
+);
 
 export default doctorRoutes;
