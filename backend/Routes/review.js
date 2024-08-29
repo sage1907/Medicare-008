@@ -9,9 +9,7 @@ import { authenticate, restrict } from "../auth/verifyToken.js";
 
 const reviewRoutes = express.Router({ mergeParams: true });
 
-reviewRoutes
-  .route("/")
-  .get(getAllReviews)
-  .post(authenticate, restrict(["patient"]), createReview);
+reviewRoutes.get("/", getAllReviews);
+reviewRoutes.post("/", authenticate, restrict(["patient"]), createReview);
 
 export default reviewRoutes;

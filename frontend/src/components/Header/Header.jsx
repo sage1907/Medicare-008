@@ -28,8 +28,6 @@ const Header = () => {
   const menuRef = useRef(null);
   const { user, role, token } = useContext(authContext);
 
-  console.log(user);
-
   const handleStickyHeader = () => {
     window.addEventListener("scroll", () => {
       if (

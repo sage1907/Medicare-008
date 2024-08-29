@@ -45,7 +45,7 @@ app.use(cors(corsOptions));
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/doctors", doctorRoutes);
-app.use("/api/v1/reviews", reviewRoutes);
+app.use("/api/v1/doctors/:doctorId/reviews", reviewRoutes);
 
 app.listen(port, () => {
     connectDB();

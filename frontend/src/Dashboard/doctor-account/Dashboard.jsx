@@ -7,6 +7,7 @@ import Tabs from "./Tabs";
 import starIcon from "../../assets/images/Star.png";
 import DoctorAbout from "../../pages/Doctors/DoctorAbout.jsx";
 import Profile from "./Profile.jsx";
+import Appointments from "./Appointments.jsx";
 
 const Dashboard = () => {
   const { data, loading, error } = useGetProfile(
@@ -93,7 +94,7 @@ const Dashboard = () => {
                   </div>
                 )}
 
-                {tab === "appointments" && <div>Appointments</div>}
+                {tab === "appointments" && <Appointments appointments={data.appointments} />}
                 {tab === "settings" && <Profile doctorData={data} />}
               </div>
             </div>

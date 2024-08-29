@@ -1,16 +1,54 @@
 import React, { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
+import { useParams } from "react-router-dom";
+import { BASE_URL, token } from "../../config";
+import HashLoader from "react-spinners/HashLoader";
+import { toast } from "react-toastify";
+import useFetchData from "../../hooks/useFetchData";
 
 const FeedbackForm = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [reviewText, setReviewText] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmitReview = async e => {
+  const { id } = useParams();
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userId = user ? user._id : null;
+
+  const handleSubmitReview = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    // later we will use our api
-  }
+    try {
+      if (!rating || !reviewText) {
+        setLoading(false);
+        return toast.error("Rating and Review fields required!");
+      }
+
+      const res = await fetch(`${BASE_URL}/doctors/${id}/reviews`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ rating, reviewText, user: userId }),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.message);
+      }
+
+      setLoading(false);
+      toast.success(result.message);
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message);
+    }
+  };
 
   return (
     <form action="">
@@ -36,8 +74,8 @@ const FeedbackForm = () => {
                 onMouseEnter={() => setHover(index)}
                 onMouseLeave={() => setHover(rating)}
                 onDoubleClick={() => {
-                    setHover(0);
-                    setRating(0);
+                  setHover(0);
+                  setRating(0);
                 }}
               >
                 <span>
@@ -54,11 +92,16 @@ const FeedbackForm = () => {
           Share your feedback and suggestions*
         </h3>
 
-        <textarea className="border border-solid border-[#0066ff34] focus:outline outline-primaryColor w-full px-4 py3 rounded-md" rows="5" placeholder="Write your message" onChange={e => setReviewText(e.target.value)}></textarea>
+        <textarea
+          className="border border-solid border-[#0066ff34] focus:outline outline-primaryColor w-full px-4 py3 rounded-md"
+          rows="5"
+          placeholder="Write your message"
+          onChange={(e) => setReviewText(e.target.value)}
+        ></textarea>
       </div>
 
       <button type="submit" onClick={handleSubmitReview} className="btn">
-        Submit Feedback
+        {loading ? <HashLoader size={25} color="#fff" /> : "Submit Feedback"}
       </button>
     </form>
   );
