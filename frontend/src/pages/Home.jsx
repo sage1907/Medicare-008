@@ -5,7 +5,7 @@ import heroImage05 from "../assets/images/ladyDoctor01.jpg";
 import icon01 from "../assets/images/icon01.png";
 import icon02 from "../assets/images/icon02.png";
 import icon03 from "../assets/images/icon03.png";
-import featureImg from "../assets/images/feature-img.png";
+import featureImg from "../assets/images/doctor-image05.jpg";
 import videoIcon from "../assets/images/video-icon.png";
 import avatarIcon from "../assets/images/avatar-icon.png";
 import faqImg from "../assets/images/faq-img.png";
@@ -18,12 +18,11 @@ import FaqList from "../components/Faq/FaqList";
 import Testimonial from "../components/Testimonial/Testimonial";
 
 const Home = () => {
-
   const navigate = useNavigate();
 
   const appointmentHandler = () => {
     navigate("/doctors");
-  }
+  };
 
   return (
     <>
@@ -38,13 +37,16 @@ const Home = () => {
                   We help patients live a healthy, longer life.
                 </h1>
                 <p className="text__para">
-                  Lorem ipsum odor amet, consectetuer adipiscing elit. Primis
-                  per lacinia class aliquam adipiscing molestie suscipit fusce.
-                  Dolor porttitor lobortis dolor mollis et velit magnis mus
-                  etiam.
+                  Empowering individuals to take control of their well-being.
+                  Providing compassionate care and innovative solutions for a
+                  healthier tomorrow. Transforming lives through exceptional
+                  medical expertise and personalized attention. Your health, our
+                  priority.
                 </p>
 
-                <button onClick={appointmentHandler} className="btn">Request an Appointment</button>
+                <button onClick={appointmentHandler} className="btn">
+                  Request an Appointment
+                </button>
               </div>
 
               {/* ======== hero counter ======== */}
@@ -78,12 +80,27 @@ const Home = () => {
             {/* ======== hero content ======== */}
             <div className="flex gap-[30px] justify-end">
               <div>
-                <img src={heroImage04} className="w-[500px] h-[420px]" alt="" style={{borderRadius: "20px"}} />
+                <img
+                  src={heroImage04}
+                  className="w-[500px] h-[420px]"
+                  alt=""
+                  style={{ borderRadius: "20px" }}
+                />
               </div>
 
               <div className="mt-[30px]">
-                <img src={heroImage05} alt="" className="w-[400px] mb-[30px]" style={{borderRadius: "20px"}} />
-                <img src={heroImage03} alt="" className="w-[300px] h-[300px]" style={{borderRadius: "20px"}} />
+                <img
+                  src={heroImage05}
+                  alt=""
+                  className="w-[400px] mb-[30px]"
+                  style={{ borderRadius: "20px" }}
+                />
+                <img
+                  src={heroImage03}
+                  alt=""
+                  className="w-[300px] h-[300px]"
+                  style={{ borderRadius: "20px" }}
+                />
               </div>
             </div>
           </div>
@@ -225,7 +242,7 @@ const Home = () => {
 
             {/* ======== feature img ======== */}
             <div className="relative z-10 xl:w-[770px] flex justify-end mt-[50px] lg:mt-0">
-              <img src={featureImg} alt="" />
+              <img src={featureImg} alt="" className="w-[550px] rounded-lg" />
 
               <div className="w-[150px] lg:w-[248px] bg-white absolute bottom-[50px] left-0 md:bottom-[100px] md:left-5 z-20 p-2 pb-3 lg:pt-4 lg:px-4 lg:pb-[26px] rounded-[10px]">
                 <div className="flex items-center justify-between">
@@ -265,8 +282,8 @@ const Home = () => {
           <div className="xl:w-[470px] mx-auto">
             <h2 className="heading text-center">Our Great Doctors</h2>
             <p className="text__para text-center">
-              World-class care for everyone. Our health System offers unmatched,
-              expert health care.
+              Meet the skilled and compassionate medical professionals dedicated
+              to your care...
             </p>
           </div>
 
@@ -284,7 +301,9 @@ const Home = () => {
             </div>
 
             <div className="w-full md:w-1/2">
-              <h2 className="heading">Most frequent questions asked by our patients</h2>
+              <h2 className="heading">
+                Most frequent questions asked by our patients
+              </h2>
 
               <FaqList />
             </div>
@@ -299,8 +318,7 @@ const Home = () => {
           <div className="xl:w-[470px] mx-auto">
             <h2 className="heading text-center">What our patients say</h2>
             <p className="text__para text-center">
-              World-class care for everyone. Our health System offers unmatched,
-              expert health care.
+              Real stories from patients who trust us with their health...
             </p>
           </div>
 
