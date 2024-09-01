@@ -19,12 +19,12 @@ doctorRoutes.use("/doctorId/reviews", reviewRoutes);
 
 doctorRoutes.get("/:id", getSingleDoctor);
 doctorRoutes.get("/", getAllDoctor);
-doctorRoutes.put("/:id", authenticate, restrict(["doctor"]), updateDoctor);
-doctorRoutes.delete("/:id", authenticate, restrict(["doctor"]), deleteDoctor);
+doctorRoutes.put("/:id", authenticate, restrict(["admin", "doctor"]), updateDoctor);
+doctorRoutes.delete("/:id", authenticate, restrict(["admin", "doctor"]), deleteDoctor);
 doctorRoutes.get(
   "/profile/me",
   authenticate,
-  restrict(["doctor"]),
+  restrict(["admin", "doctor"]),
   getDoctorProfile
 );
 

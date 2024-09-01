@@ -1,7 +1,7 @@
 import React from "react";
-import heroImage01 from "../assets/images/hero-img01.png";
-import heroImage02 from "../assets/images/hero-img02.png";
-import heroImage03 from "../assets/images/hero-img03.png";
+import heroImage03 from "../assets/images/maleDoctor01.jpg";
+import heroImage04 from "../assets/images/doctor-image01.jpeg";
+import heroImage05 from "../assets/images/ladyDoctor01.jpg";
 import icon01 from "../assets/images/icon01.png";
 import icon02 from "../assets/images/icon02.png";
 import icon03 from "../assets/images/icon03.png";
@@ -9,7 +9,7 @@ import featureImg from "../assets/images/feature-img.png";
 import videoIcon from "../assets/images/video-icon.png";
 import avatarIcon from "../assets/images/avatar-icon.png";
 import faqImg from "../assets/images/faq-img.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
 import About from "../components/About/About";
 import ServiceList from "../components/Services/ServiceList";
@@ -18,6 +18,13 @@ import FaqList from "../components/Faq/FaqList";
 import Testimonial from "../components/Testimonial/Testimonial";
 
 const Home = () => {
+
+  const navigate = useNavigate();
+
+  const appointmentHandler = () => {
+    navigate("/doctors");
+  }
+
   return (
     <>
       {/* ======== hero section ======== */}
@@ -34,12 +41,10 @@ const Home = () => {
                   Lorem ipsum odor amet, consectetuer adipiscing elit. Primis
                   per lacinia class aliquam adipiscing molestie suscipit fusce.
                   Dolor porttitor lobortis dolor mollis et velit magnis mus
-                  etiam. Ultrices ligula tincidunt in, eleifend amet per
-                  senectus. In enim purus suspendisse eros egestas class est dis
-                  id.
+                  etiam.
                 </p>
 
-                <button className="btn">Request an Appointment</button>
+                <button onClick={appointmentHandler} className="btn">Request an Appointment</button>
               </div>
 
               {/* ======== hero counter ======== */}
@@ -73,12 +78,12 @@ const Home = () => {
             {/* ======== hero content ======== */}
             <div className="flex gap-[30px] justify-end">
               <div>
-                <img src={heroImage01} alt="" />
+                <img src={heroImage04} className="w-[500px] h-[420px]" alt="" style={{borderRadius: "20px"}} />
               </div>
 
               <div className="mt-[30px]">
-                <img src={heroImage02} alt="" className="w-full mb-[30px]" />
-                <img src={heroImage03} alt="" className="w-full" />
+                <img src={heroImage05} alt="" className="w-[400px] mb-[30px]" style={{borderRadius: "20px"}} />
+                <img src={heroImage03} alt="" className="w-[300px] h-[300px]" style={{borderRadius: "20px"}} />
               </div>
             </div>
           </div>
@@ -286,7 +291,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {/* ======== fa section end ======== */}
+      {/* ======== faq section end ======== */}
 
       {/* ======== testimonial ======== */}
       <section>

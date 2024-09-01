@@ -1,7 +1,35 @@
 import React from "react";
+import { BASE_URL, token } from "./../../config";
 import convertTime from "../../utils/convertTime";
+import { toast } from 'react-toastify';
 
 const SidePanel = ({ doctorId, ticketPrice, timeSlots }) => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userId = user ? user._id : null;
+
+  const bookingHandler = async () => {
+    try {
+      const res = await fetch(`${BASE_URL}/bookings/checkout-session/${doctorId}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ userId }) // Pass user ID in the request body
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message + " Please try again!");
+      }
+
+      toast.success(data.message);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className="shadow-panelShadow p-3 lg:p-5 rounded-md">
       <div className="flex items-center justify-between">
@@ -13,7 +41,7 @@ const SidePanel = ({ doctorId, ticketPrice, timeSlots }) => {
 
       <div className="mt-[30px]">
         <p className="text__para mt-0 font-semibold text-headingColor">
-          Avaialble time slots:
+          Available time slots:
         </p>
 
         <ul className="mt-3">
@@ -30,7 +58,9 @@ const SidePanel = ({ doctorId, ticketPrice, timeSlots }) => {
         </ul>
       </div>
 
-      <button className="btn px-2 w-full rounded-md">Book Appointment</button>
+      <button className="btn px-2 w-full rounded-md" onClick={bookingHandler}>
+        Book Appointment
+      </button>
     </div>
   );
 };

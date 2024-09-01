@@ -57,7 +57,7 @@ const Dashboard = () => {
                   <div>
                     <div className="flex items-center gap-4 mb-10">
                       <figure className="max-w-[200px] max-h-[200px]">
-                        <img src={data?.photo} alt="" className="w-full" />
+                        <img src={data?.photo} alt="" className="w-full rounded-lg" />
                       </figure>
 
                       <div>

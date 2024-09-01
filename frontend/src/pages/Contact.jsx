@@ -1,6 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../config";
+import { toast } from "react-toastify";
 
 const Contact = () => {
+
+  const [formData, setFormData] = useState({
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Replace with your actual API endpoint
+      const response = await fetch(`${BASE_URL}/feedback`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      toast.success("Feedback submitted successfully.");
+      navigate("/success", { state: { email: formData.email } });
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      toast.error(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section>
       <div className="px-4 mx-auto max-w-screen-md">
@@ -10,7 +58,7 @@ const Contact = () => {
           us know.
         </p>
 
-        <form action="#" className="space-y-8">
+        <form onSubmit={handleSubmit} action="#" className="space-y-8">
           <div>
             <label htmlFor="email" className="form__label">
               Your Email
@@ -18,8 +66,12 @@ const Contact = () => {
             <input
               type="email"
               id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               placeholder="example@gmail.com"
               className="form__input mt-1"
+              required
             />
           </div>
 
@@ -30,8 +82,12 @@ const Contact = () => {
             <input
               type="text"
               id="subject"
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
               placeholder="Let us know how we can help you"
               className="form__input mt-1"
+              required
             />
           </div>
 
@@ -41,9 +97,11 @@ const Contact = () => {
             </label>
             <textarea
               rows="6"
-              type="text"
               id="message"
-              placeholder="Let us know how we can help you"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              placeholder="Leave a comment..."
               className="form__input mt-1"
             />
           </div>

@@ -5,7 +5,7 @@ import User from "../models/UserSchema.js";
 export const authenticate = async (req, res, next) => {
     // get token from headers
     const authToken = req.headers.authorization;
-
+    
     // check token exists
     if(!authToken || !authToken.startsWith("Bearer ")) {
         return res.status(401).json({
@@ -16,6 +16,7 @@ export const authenticate = async (req, res, next) => {
 
     try {
         const token = authToken.split(" ")[1];
+        
 
         // verify token
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
@@ -47,6 +48,7 @@ export const restrict = roles => async (req, res, next) => {
 
     const patient = await User.findById(userId);
     const doctor = await Doctor.findById(userId);
+    const admin = await User.findOne({ _id: userId, role: 'admin' });
 
     if(patient){
         user = patient;
@@ -54,11 +56,14 @@ export const restrict = roles => async (req, res, next) => {
     if(doctor){
         user = doctor;
     }
+    if(admin){
+        user = admin;
+    }
 
     if(!roles.includes(user.role)){
         return res.status(401).json({
             success: false,
-            message: "You are not authorized to do this action",
+            message: "You are not authorized to perform this action",
         });
     }
 

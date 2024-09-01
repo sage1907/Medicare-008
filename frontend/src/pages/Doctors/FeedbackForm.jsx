@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { BASE_URL, token } from "../../config";
 import HashLoader from "react-spinners/HashLoader";
 import { toast } from "react-toastify";
-import useFetchData from "../../hooks/useFetchData";
 
 const FeedbackForm = () => {
   const [rating, setRating] = useState(0);

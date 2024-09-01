@@ -2,15 +2,16 @@ import React, { useState, useContext } from "react";
 import { authContext } from "./../../context/AuthContext.jsx";
 import Profile from "./Profile.jsx";
 import MyBookings from "./MyBookings.jsx";
-
 import useGetProfile from "../../hooks/useFetchData.js";
 import { BASE_URL } from "../../config.js";
 import Loading from "../../components/Loader/Loading.jsx";
 import Error from "../../components/Error/Error.jsx";
+import { useNavigate } from "react-router-dom";
 
 const MyAccount = () => {
   const [tab, setTab] = useState("bookings");
   const { dispatch } = useContext(authContext);
+  const navigate = useNavigate();
 
   const {
     data: userData,
@@ -18,6 +19,9 @@ const MyAccount = () => {
     error,
   } = useGetProfile(`${BASE_URL}/users/profile/me`);
 
+  const handleViewFeedbacks = () => {
+    navigate("/admin/feedback");
+  }
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
@@ -26,10 +30,9 @@ const MyAccount = () => {
   return (
     <section>
       <div className="max-w-[1170px] px-5 mx-auto">
-
         {loading && !error && <Loading />}
 
-        {error && !loading &&<Error errorMessage={error} />}
+        {error && !loading && <Error errorMessage={error} />}
 
         {!loading && !error && (
           <div className="grid md:grid-cols-3 gap-10">
@@ -60,9 +63,17 @@ const MyAccount = () => {
               </div>
 
               <div className="mt-[50px] md:mt-[100px]">
+                {userData.role === "admin" && (
+                  <button
+                    onClick={handleViewFeedbacks}
+                    className="w-full bg-[#181A1E] p-3 text-[16px] leading-7 rounded-md text-white"
+                  >
+                    View Feedbacks
+                  </button>
+                )}
                 <button
                   onClick={handleLogout}
-                  className="w-full bg-[#181A1E] p-3 text-[16px] leading-7 rounded-md text-white"
+                  className="w-full bg-[#181A1E] mt-4 p-3 text-[16px] leading-7 rounded-md text-white"
                 >
                   Logout
                 </button>

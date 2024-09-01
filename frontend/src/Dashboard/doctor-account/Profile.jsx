@@ -12,7 +12,7 @@ const Profile = ({doctorData}) => {
     bio: "",
     gender: "",
     specialization: "",
-    ticketPrice: null,
+    ticketPrice: 100,
     qualifications: [],
     experiences: [],
     timeSlots: [],
@@ -218,7 +218,7 @@ const Profile = ({doctorData}) => {
             onChange={handleInputChange}
             placeholder="Bio"
             className="form__input"
-            maxLength={100}
+            maxLength={200}
           />
         </div>
 
@@ -250,6 +250,12 @@ const Profile = ({doctorData}) => {
                 <option value="">Select</option>
                 <option value="Surgeon">Surgeon</option>
                 <option value="Neurologist">Neurologist</option>
+                <option value="Oncologist">Oncologist</option>
+                <option value="Gynaecologist">Gynaecologist</option>
+                <option value="Cardiologist">Cardiologist</option>
+                <option value="Psychiatrist">Psychiatrist</option>
+                <option value="Orthopedic">Orthopedic</option>
+                <option value="Dentist">Dentist</option>
                 <option value="Dermatologist">Dermatologist</option>
               </select>
             </div>
@@ -261,6 +267,7 @@ const Profile = ({doctorData}) => {
                 placeholder="100"
                 name="ticketPrice"
                 value={formData.ticketPrice}
+                onChange={handleInputChange}
                 className="form__input"
               />
             </div>
