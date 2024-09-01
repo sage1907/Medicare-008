@@ -6,7 +6,7 @@ import { submitFeedback, getAllFeedback } from "../Controllers/feedbackControlle
 const feedbackRoutes = express.Router();
 
 
-feedbackRoutes.post("/", authenticate, restrict(["patient", "doctor"]), submitFeedback);
+feedbackRoutes.post("/", submitFeedback);
 feedbackRoutes.get("/", authenticate, restrict(["admin"]), getAllFeedback);
 
 
