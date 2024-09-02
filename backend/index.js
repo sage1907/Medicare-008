@@ -17,7 +17,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 
-const allowedOrigins = ['https://medicare-sage-six.vercel.app'];
+const allowedOrigins = ['https://medicare-sagar-basaks-projects.vercel.app'];
 
 const corsOptions = {
   origin: function (origin, callback) {
