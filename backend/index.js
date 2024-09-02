@@ -18,9 +18,24 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 
+const allowedOrigins = ['https://medicare-sage-six.vercel.app/'];
+
+// const corsOptions = {
+//     origin: true
+// };
+
 const corsOptions = {
-    origin: true
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // if you need to send cookies or other credentials
 };
+
+
 
 app.get('/', (req, res) => {
     res.send("Api is working!");
